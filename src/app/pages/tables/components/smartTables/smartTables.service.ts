@@ -10,7 +10,8 @@ export class SmartTablesService {
       lastName: 'Otto',
       username: '@mdo',
       email: 'mdo@gmail.com',
-      age: '28'
+      age: '28',
+      gender: 'Yes'
     },
     {
       id: 2,
