@@ -15,8 +15,201 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'user',
+        data: {
+          menu: {
+            title: 'general.menu.manage_user',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'customer',
+            data: {
+              menu: {
+                title: 'general.menu.customer',
+              }
+            }
+          },
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          },
+          {
+            path: 'admin',
+            data: {
+              menu: {
+                title: 'general.menu.admin',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'product',
+        data: {
+          menu: {
+            title: 'general.menu.manage_product',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'order',
+        data: {
+          menu: {
+            title: 'general.menu.manage_order',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'promotion',
+        data: {
+          menu: {
+            title: 'general.menu.manage_promotion',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'category',
+        data: {
+          menu: {
+            title: 'general.menu.manage_category',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'unit',
+        data: {
+          menu: {
+            title: 'general.menu.manage_unit',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'ship',
+        data: {
+          menu: {
+            title: 'general.menu.manage_ship',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'statistic',
+        data: {
+          menu: {
+            title: 'general.menu.statistic',
+            icon: 'ion-pricetag',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'supplier',
+            data: {
+              menu: {
+                title: 'general.menu.supplier',
+              }
+            }
+          }
+        ]
+      },
+      {
         path: 'editors',
         data: {
+
           menu: {
             title: 'general.menu.editors',
             icon: 'ion-edit',
