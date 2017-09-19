@@ -1,0 +1,83 @@
+<div class="widgets">
+  <ba-card cardTitle="Information order" baCardClass="with-scroll">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Name: </label>
+          <p class="form-text">Order 1</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>User: </label>
+          <a href="#" class="form-text">Đặng Ngọc Vũ</a>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Phone: </label>
+          <p class="form-text">01266555022</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Address Order: </label>
+          <p class="form-text">K 140/2 Hoàng Diệu</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="inputDateTrans">Date transfer: </label>
+          <input type="date" readonly class="form-control" id="inputDateTrans"  placeholder="Date transfer">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Total Payment: </label>
+          <p class="form-text">1.600.000 đ</p>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-warning">Submit</button>
+  </ba-card>
+  <ba-card cardTitle="List order of user" baCardClass="with-scroll">
+    <div class="vertical-scroll">
+      <table class="table table-hover">
+        <thead>
+        <tr class="black-muted-bg">
+          <th>Action</th>
+          <th class="browser-icons"></th>
+          <th>Browser</th>
+          <th class="align-right">Visits</th>
+          <th class="table-arr"></th>
+          <th class="align-right">Purchases</th>
+          <th class="table-arr"></th>
+          <th class="align-right">%</th>
+          <th class="table-arr"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of metricsTableData" class="no-top-border">
+          <td>
+            <button title="Delete User" (click)="remove(item)" class="btn btn-danger"><i class="ion-android-delete"></i></button>
+            <button title="Detail User" (click)="remove(item)" class="btn btn-info"><i class="ion-information-circled"></i></button>
+          </td>
+          <td><img src="{{ ( item.image | baAppPicture ) }}" width="20" height="20"></td>
+          <td ngClass="nowrap">{{item.browser}}</td>
+          <td class="align-right">{{item.visits}}</td>
+          <td class="table-arr"><i [ngClass]="{'icon-up': item.isVisitsUp, 'icon-down': !item.isVisitsUp }"></i></td>
+          <td class="align-right">{{item.purchases}}</td>
+          <td class="table-arr"><i [ngClass]="{'icon-up': item.isPurchasesUp, 'icon-down': !item.isPurchasesUp }"></i></td>
+          <td class="align-right">{{item.percent}}</td>
+          <td class="table-arr"><i [ngClass]="{'icon-up': item.isPercentUp, 'icon-down': !item.isPercentUp }"></i></td>
+        </tr>
+        <tr>
+          <th colspan="3"></th>
+          <th>Total</th>
+          <th>40000</th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </ba-card>
+</div>
