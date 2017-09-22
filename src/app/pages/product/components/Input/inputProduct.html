@@ -6,7 +6,8 @@
           <div class="form-group row">
             <label for="inputEmail3" class="col-sm-1 form-control-label">Name</label>
             <div class="col-sm-11">
-              <div class="form-group has-error has-feedback">
+              <div class="form-group has-feedback"
+                   [ngClass]="{'has-error': inputItemForm.controls['name'].invalid && inputItemForm.controls['name'].touched}">
                 <input type="email" class="form-control"  formControlName="name" id="inputEmail3" placeholder="Name">
                 <i *ngIf="inputItemForm.controls['name'].hasError('required')
               && inputItemForm.controls['name'].touched" class="ion-android-cancel form-control-feedback" aria-hidden="true"></i>
@@ -17,64 +18,79 @@
           </div>
           <div class="form-group row">
             <label for="price-product" class="col-sm-1 form-control-label">Price</label>
-            <div class="col-sm-4">
+            <div class="col-sm-4"
+                 [ngClass]="{'has-error': inputItemForm.controls['price'].invalid
+                 && inputItemForm.controls['price'].touched}">
               <input type="number" class="form-control" id="price-product"  formControlName="price" placeholder="Price">
+              <i *ngIf="inputItemForm.controls['price'].hasError('required')
+              && inputItemForm.controls['price'].touched" class="ion-android-cancel form-control-feedback" aria-hidden="true"></i>
+              <span *ngIf="inputItemForm.controls['price'].hasError('required')
+              && inputItemForm.controls['price'].touched" class="help-block">Please input price of item</span>
+
             </div>
             <label for="price-product" class="col-sm-1 form-control-label ">/Vnđ</label>
             <label for="quantity-product" class="col-sm-1 form-control-label">Quantity</label>
-            <div class="col-sm-3">
+            <div class="col-sm-3" [ngClass]="{'has-error': inputItemForm.controls['quantity'].invalid
+                 && inputItemForm.controls['quantity'].touched}">
               <input type="number" class="form-control"  formControlName="quantity" id="quantity-product" placeholder="Quantity">
+              <span *ngIf="inputItemForm.controls['quantity'].hasError('required')
+              && inputItemForm.controls['quantity'].touched" class="help-block">Please input quantity</span>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2" [ngClass]="{'has-error': inputItemForm.controls['unit'].invalid
+                 && inputItemForm.controls['unit'].touched}">
               <select class="form-control"  formControlName="unit">
                 <option *ngFor="let item of units" [value]="item.id">{{item.name}}</option>
               </select>
+              <span *ngIf="inputItemForm.controls['unit'].hasError('required')
+              && inputItemForm.controls['unit'].touched" class="help-block">Please choose unit</span>
+
             </div>
           </div>
         <div class="form-group row">
           <label for="exampleSelect1" class="col-sm-1 form-control-label">Category</label>
-          <div class="col-sm-4">
+          <div class="col-sm-4" [ngClass]="{'has-error': categoriesChoise.length === 0
+                 && inputItemForm.controls['category'].touched}">
             <select class="form-control" id="exampleSelect1" formControlName="category" (change)="addCategory(inputItemForm.value.category)">
               <option [value]="0">---Choose Category---</option>
               <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
             </select>
+            <span *ngIf="categoriesChoise.length === 0
+              && inputItemForm.controls['category'].touched" class="help-block">Please choose category</span>
+
             <button *ngFor="let item of categoriesChoise; let index = index" type="button" class="btn btn-warning btn-xs ml-1 mt-1">{{item.name}} <a (click)="removeCategory(index)"><span class="badge">x</span></a></button>
           </div>
           <label for="expiredAt" class="col-sm-2 form-control-label">Expire Date: </label>
-          <div class="col-sm-4">
+          <div class="col-sm-4" [ngClass]="{'has-error': inputItemForm.controls['expiredAt'].invalid
+                 && inputItemForm.controls['expiredAt'].touched}">
             <input type="date" class="form-control"  formControlName="expiredAt" id="expiredAt" placeholder="Quantity">
+            <span *ngIf="inputItemForm.controls['expiredAt'].hasError('required')
+              && inputItemForm.controls['expiredAt'].touched" class="help-block">Please input expire date</span>
+
           </div>
         </div>
         <div class="form-group has-feedback row">
           <label class="col-sm-1 form-control-label">Supplier</label>
-          <label class="col-sm-3 form-control-label"><a href="#">Vu Dang</a></label>
+          <label class="col-sm-3 form-control-label"><a [routerLink]="['/pages/users/detail',1]">Vu Dang</a></label>
 
         </div>
-        <div  class="form-group has-warning has-feedback">
-          <input type="text" class="form-control" id="inputWarning2" aria-describedby="inputWarning2Status">
-          <i class="ion-alert-circled form-control-feedback" aria-hidden="true"></i>
-          <span id="inputWarning2Status" class="sr-only">(warning)</span>
-        </div>
-          <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 form-control-label">Description</label>
-            <div class="col-sm-10">
-              <ckeditor  formControlName="description" [config]="config"></ckeditor>
-            </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 form-control-label">Description</label>
+          <div class="col-sm-10" [ngClass]="{'has-error': inputItemForm.controls['price'].invalid
+               && inputItemForm.controls['price'].touched}">
+            <ckeditor  formControlName="description" [config]="config"></ckeditor>
           </div>
+        </div>
       </ba-card>
       <div class="row">
-        <div class="col-md-8">
-          <ba-card cardTitle="Picture" baCardClass="with-scroll w-100">
-            <div style="height: 300px; width: 100%">
+        <div class="form-group col-md-8">
+          <h2 *ngIf="imageItems.length === 0" class="help-block">Please input image</h2>
+          <ba-card cardTitle="Picture" baCardClass="with-scroll w-100" >
+            <div style="height: 300px; width: 100%" >
               <dropzone [config]="configDropZone" (removedfile)="onRemoveFile($event)" [message]="'Click or drag images here to upload'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
-              <!--<img src="../../../../../assets/images/bulls.gif" height="100" width="150"/>-->
             </div>
-              <!--<ba-picture-uploader class="float-left" [picture]="picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>-->
-              <!--<ba-picture-uploader class="float-left" [picture]="picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>-->
-
           </ba-card>
         </div>
-        <div class="col-md-4d">
+        <div class="col-md-4">
           <ba-card cardTitle="Input By File" baCardClass="with-scroll">
             <ba-file-uploader [fileUploaderOptions]="fileUploaderOptions"></ba-file-uploader>
           </ba-card>
@@ -82,7 +98,7 @@
       </div>
         <div class="form-group row">
           <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-warning">Submit</button>
+            <button [disabled]="!inputItemForm.valid && imageItems.length === 0" type="submit" class="btn btn-warning">Submit</button>
           </div>
         </div>
       </form>

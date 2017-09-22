@@ -58,16 +58,8 @@ export class InputProductComponent implements OnInit {
       this.categories = data;
     });
     unitService.getListUnit().subscribe(data => {
+      console.log(data);
       this.units = data;
-    });
-    this.inputItemForm = this.formBuilder.group({
-        name: new FormControl('', [Validators.required]),
-        category: new FormControl(0, [Validators.required]),
-        price: new FormControl('', [Validators.required]),
-        quantity: new FormControl('', [Validators.required]),
-        unit: new FormControl('1', [Validators.required]),
-        description: new FormControl('', [Validators.required]),
-        expiredAt: new FormControl('', [Validators.required]),
     });
     this.categoriesChoise = [];
     this.imageItems = [];
@@ -81,14 +73,15 @@ export class InputProductComponent implements OnInit {
       this.id = +params['id'];
       if (this.id) {
         this.itemService.getItemById(this.id).subscribe(data => {
-          this.categoriesChoise = data.category;
+          this.categoriesChoise = data.categories;
           console.log(data);
           setTimeout( () =>  {
             this.inputItemForm = this.formBuilder.group({
               name: new FormControl(data.name, [Validators.required]),
               category: new FormControl(0, [Validators.required]),
               price: new FormControl(data.price, [Validators.required]),
-              quantity: new FormControl(data.quantity, [Validators.required]),
+              quantity: new FormControl(data.quantity, [Validators.required,
+                Validators.minLength(0)]),
               unit: new FormControl(data.unit.id, [Validators.required]),
               description: new FormControl(data.description, [Validators.required]),
               expiredAt: new FormControl('', [Validators.required]),
@@ -115,11 +108,13 @@ export class InputProductComponent implements OnInit {
           }, 2000);
         });
       } else {
+        this.id = 0;
         this.inputItemForm = this.formBuilder.group({
           name: new FormControl('', [Validators.required]),
           category: new FormControl(0, [Validators.required]),
           price: new FormControl('', [Validators.required]),
-          quantity: new FormControl('', [Validators.required]),
+          quantity: new FormControl('', [Validators.required,
+            Validators.minLength(0)]),
           unit: new FormControl('1', [Validators.required]),
           description: new FormControl('', [Validators.required]),
           expiredAt: new FormControl('', [Validators.required]),
@@ -160,37 +155,52 @@ export class InputProductComponent implements OnInit {
   }
 
   save(model) {
-    this.categoriesChoise.push(model.category);
     let data;
-    data = {
-      'name': model.name,
-      'category': [
-        {
-          'id': Number.parseInt(model.category)
-        }
-      ],
-      'price': model.price,
-      'avatar': '/' + this.imageItems[0].image,
-      'status': true,
-      'quantity': model.quantity,
-      'description': model.description,
-      'expiredAt': model.expiredAt,
-      'categories': this.categoriesChoise,
-      'unit': {
-        'id': Number.parseInt(model.unit)
-      },
-      'supplier': {
-        'id': 1
-      },
-      'imageItems': this.imageItems
-    };
-    console.log(JSON.stringify(data));
-    // let headers;
-    // headers = new Headers();
-    // headers.append('Authorization', this.tokenService.getToken());
-    // headers.append('Accept', 'application/json');
-    // this.tokenService.postDataWithToken(environment.hostname + '/item/create', headers, data).subscribe(data2 => {
-    //   console.log(data2);
-    // });
+    if (this.id) {
+      data = {
+        'name': model.name,
+        'price': model.price,
+        'avatar': '/' + this.imageItems[0].image,
+        'status': true,
+        'quantity': model.quantity,
+        'description': model.description,
+        'expiredAt': model.expiredAt,
+        'categories': this.categoriesChoise,
+        'unit': {
+          'id': Number.parseInt(model.unit)
+        },
+        'supplier': {
+          'id': 1
+        },
+        'imageItems': this.imageItems
+      };
+      this.tokenService.postDataWithToken(environment.hostname + '/item/create', data)
+        .subscribe(data2 => {
+          console.log(data2);
+        });
+    } else {
+      data = {
+        'id': this.id,
+        'name': model.name,
+        'price': model.price,
+        'avatar': '/' + this.imageItems[0].image,
+        'status': true,
+        'quantity': model.quantity,
+        'description': model.description,
+        'expiredAt': model.expiredAt,
+        'categories': this.categoriesChoise,
+        'unit': {
+          'id': Number.parseInt(model.unit)
+        },
+        'supplier': {
+          'id': 1
+        },
+        'imageItems': this.imageItems
+      };
+      this.tokenService.postDataWithToken(environment.hostname + '/item/update', data)
+        .subscribe(data2 => {
+          console.log(data2);
+        });
+    }
   }
 }

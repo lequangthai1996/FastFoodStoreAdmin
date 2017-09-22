@@ -66,6 +66,7 @@ export class AdminDetailComponent implements OnInit {
       gender: new FormControl('')
     });
     this.orders = [];
+    this.id = 0;
   }
 
   ngOnInit(): void {
@@ -79,11 +80,13 @@ export class AdminDetailComponent implements OnInit {
             this.userForm = this.formBuilder.group({
               email: new FormControl(data.email, [Validators.required, Validators.email]),
               name: new FormControl(data.fullName, [Validators.required]),
-              birthday: new FormControl(data.birthday.split('T')[0], [Validators.required, Validators.pattern('[0-9]*')]),
+              birthday: new FormControl((data.birthday != null) ? data.birthday.split('T')[0] : '',
+                [Validators.required, Validators.pattern('[0-9]*')]),
               address: new FormControl(data.address, [Validators.required]),
               card: new FormControl(data.creditCard),
-              gender: new FormControl(data.gender.toString())
+              gender: new FormControl(data.gender != null ? data.gender.toString() : 'true')
             });
+            this.profile.picture = data.avatar;
           }, 2000);
           console.log(data);
           this.orders = data.orders;
@@ -93,15 +96,48 @@ export class AdminDetailComponent implements OnInit {
         });
       //   url = environment.hostname + '/O'
       // this.tokenService.getDataWithToken()
+      } else {
+        this.id = 0;
       }
     });
   }
 
   save(model) {
     console.log(model);
-    if (this.id) {
+    if (!this.id) {
       let url, data;
-      url = environment.hostname + '/user/getUserById/' + this.id;
+      url = environment.hostname + '/user/createUser';
+      data = {
+        'username': model.email,
+        'email': model.email,
+        'password': '12356',
+        'fullName': model.name,
+        'address': model.address,
+        'gender': model.gender,
+        'birthday': model.birthday,
+        'avatar': 'add',
+        'creditCard': model.card,
+        'authorities': this.checkboxModel
+      };
+      console.log(JSON.stringify(data));
+      this.tokenService.postDataWithToken(url, data).subscribe(res => {
+      });
+    } else {
+      let url, data;
+      data = {
+        'id': this.id,
+        'username': model.email,
+        'email': model.email,
+        'password': '12356',
+        'fullName': model.name,
+        'address': model.address,
+        'gender': model.gender,
+        'birthday': model.birthday,
+        'avatar': 'add',
+        'creditCard': model.card,
+        'authorities': this.checkboxModel
+      };
+      url = environment.hostname + '/user/updateByAdmin';
       data = {};
       this.tokenService.postDataWithToken(url, data).subscribe(res => {
       });

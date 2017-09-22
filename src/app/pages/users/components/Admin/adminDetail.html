@@ -100,19 +100,20 @@
       <table class="table table-hover">
         <thead>
         <tr class="black-muted-bg">
-          <th class="browser-icons"></th>
           <th>Order ID</th>
           <th class="align-right">Total</th>
           <th class="align-right">Address</th>
+          <th class="align-right">Status</th>
           <th class="align-right">Created Date</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let item of orders" class="no-top-border">
-          <td><img src="{{ ( item.image | baAppPicture ) }}" width="20" height="20"></td>
           <td ngClass="nowrap">{{item.id}}</td>
           <td class="align-right">{{item.total}}</td>
           <td class="align-right">{{item.address}}</td>
+          <td class="align-right">
+            <button type="submit" class="btn btn-warning">{{item.status}}</button></td>
           <td class="align-right">{{item.transportedAt !== null ? (item.transportedAt.split('T')[0]) : ''}}</td>
         </tr>
         </tbody>
