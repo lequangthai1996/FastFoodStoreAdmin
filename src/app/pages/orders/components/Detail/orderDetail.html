@@ -1,44 +1,55 @@
-<div class="widgets">
-  <ba-card cardTitle="Information order" baCardClass="with-scroll">
+<div class="widgets" *ngIf="data.id != undefined">
+  <ba-card cardTitle="Information order" baCardClass="with-scroll" >
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group">
           <label>Name: </label>
-          <p class="form-text">Order 1</p>
+          <p class="form-text">Order {{data.id}} | Date: {{data.createdAt.split('T')[0]}}</p>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label>User: </label>
-          <a href="#" class="form-text">Đặng Ngọc Vũ</a>
+          <a [routerLink]="['/pages/users/detail',data.userId]" class="form-text">{{data.name}}</a>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label>Phone: </label>
-          <p class="form-text">01266555022</p>
+          <p class="form-text">{{data.phone}}</p>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label>Address Order: </label>
-          <p class="form-text">K 140/2 Hoàng Diệu</p>
+          <p class="form-text">{{data.address}}</p>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label for="inputDateTrans">Date transfer: </label>
-          <input type="date" readonly class="form-control" id="inputDateTrans"  placeholder="Date transfer">
+          <input type="date" class="form-control" id="inputDateTrans"  placeholder="Date transfer" [(ngModel)]="transAt">
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label>Total Payment: </label>
-          <p class="form-text">1.600.000 đ</p>
+          <p class="form-text">{{data.total.toLocaleString('vi')}} đ</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Status: </label>
+          <select class="form-control" [(ngModel)]="status">
+            <option value="0">Cancel</option>
+            <option value="1">Pending</option>
+            <option value="2">Approved</option>
+            <option value="3">Finished</option>
+          </select>
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-warning">Submit</button>
+    <button (click)="updateStatus()" class="btn btn-warning">Submit</button>
   </ba-card>
   <ba-card cardTitle="List order of user" baCardClass="with-scroll">
     <div class="vertical-scroll">
@@ -46,35 +57,30 @@
         <thead>
         <tr class="black-muted-bg">
           <th>Action</th>
-          <th class="browser-icons"></th>
-          <th>Browser</th>
-          <th class="align-right">Visits</th>
-          <th class="table-arr"></th>
-          <th class="align-right">Purchases</th>
-          <th class="table-arr"></th>
-          <th class="align-right">%</th>
-          <th class="table-arr"></th>
+          <th><a (click)="sort('id')" >ID</a></th>
+          <th><a (click)="sort('id')" >Item</a></th>
+          <th><a (click)="sort('id')" >Price</a></th>
+          <th><a (click)="sort('id')" >Quantity</a></th>
+          <th><a (click)="sort('id')" >Total</a></th>
+          <th><a (click)="sort('id')" >Created Date</a></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of metricsTableData" class="no-top-border">
+        <tr *ngFor="let item of data.orderItems" class="no-top-border">
           <td>
             <button title="Delete User" (click)="remove(item)" class="btn btn-danger"><i class="ion-android-delete"></i></button>
             <button title="Detail User" (click)="remove(item)" class="btn btn-info"><i class="ion-information-circled"></i></button>
           </td>
-          <td><img src="{{ ( item.image | baAppPicture ) }}" width="20" height="20"></td>
-          <td ngClass="nowrap">{{item.browser}}</td>
-          <td class="align-right">{{item.visits}}</td>
-          <td class="table-arr"><i [ngClass]="{'icon-up': item.isVisitsUp, 'icon-down': !item.isVisitsUp }"></i></td>
-          <td class="align-right">{{item.purchases}}</td>
-          <td class="table-arr"><i [ngClass]="{'icon-up': item.isPurchasesUp, 'icon-down': !item.isPurchasesUp }"></i></td>
-          <td class="align-right">{{item.percent}}</td>
-          <td class="table-arr"><i [ngClass]="{'icon-up': item.isPercentUp, 'icon-down': !item.isPercentUp }"></i></td>
-        </tr>
+          <td>{{item.id}}</td>
+          <td>{{item.itemVO.name}}</td>
+          <td>{{item.priceOffical.toLocaleString('vi')}}đ</td>
+          <td>{{item.quantityCart}}</td>
+          <td>{{(item.priceOffical * item.quantityCart).toLocaleString('vi')}}đ</td>
+          <td>{{item.createAt !== null ? item.createAt.split('T')[0] : ''}}</td>
         <tr>
-          <th colspan="3"></th>
+          <th colspan="4"></th>
           <th>Total</th>
-          <th>40000</th>
+          <th>{{data.total.toLocaleString('vi')}}đ</th>
         </tr>
         </tbody>
       </table>

@@ -8,16 +8,16 @@ import {ShareService} from '../../theme/services/share.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'login',
+  selector: 'app-login',
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
-export class Login {
+export class LoginComponent {
 
   public form: FormGroup;
   public email: AbstractControl;
   public password: AbstractControl;
-  public submitted: boolean = false;
+  public submitted = false;
 
   constructor(fb: FormBuilder, private http: Http,
               private tokenService: TokenService,
@@ -32,29 +32,22 @@ export class Login {
     this.password = this.form.controls['password'];
   }
 
-  public onSubmit(values: Object): void {
+  public onSubmit(values): void {
     this.submitted = true;
     if (this.form.valid) {
-      const url = environment.hostname + '/auth';
+      const url = environment.hostname + '/auth/admin';
       let data;
       data = {
-        'username': this.email,
-        'password': this.password,
+        'username': values.email,
+        'password': values.password,
       };
-      let headers;
-      headers = new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      });
-      let options;
-      options = new RequestOptions({headers: headers});
-      console.log(options);
-      this.http.post(url, data, options).map(res => res.json()).subscribe((a: any) => {
+      this.tokenService.postDataWithToken(url, data).subscribe((a: any) => {
         console.log(a);
         this.tokenService.setToken(a);
         this.service.loginToken(a);
         swal('Thông báo', 'Đăng nhập thành công!', 'success');
-        this.router.navigate(['/home']);
+        alert('Login success!');
+        this.router.navigate(['/pages']);
       }, (err: any) => {
         if (err.status === 401) {
           swal('Thông báo', 'Email hoặc mật khẩu không tồn tại!', 'error');

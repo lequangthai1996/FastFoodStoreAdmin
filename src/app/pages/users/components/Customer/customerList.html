@@ -73,12 +73,12 @@
                                                       totalItems: itemsTotal }">
             <td>
               <button title="Delete User" (click)="remove(item)" class="btn btn-danger"><i class="ion-android-delete"></i></button>
-              <button title="Detail User" [routerLink]="['detail',1]" class="btn btn-info"><i class="ion-information-circled"></i></button>
+              <button title="Detail User" [routerLink]="['detail',item.id]" class="btn btn-info"><i class="ion-information-circled"></i></button>
             </td>
             <td>{{item.fullName}}</td>
             <td>{{item.email}}</td>
-            <td class="text-left">{{item.birthday}}</td>
-            <td>{{item.gender | uppercase}}</td>
+            <td class="text-left">{{item.birthday!= null ? item.birthday.split('T')[0] : ''}}</td>
+            <td>{{item.gender == true ? 'Male' : item.gender == false ? 'Female' : ''  | uppercase }}</td>
           </tr>
           </tbody>
           <tfoot>

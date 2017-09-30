@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
 import {Http} from '@angular/http';
+import {TokenService} from '../../../../theme/services/token.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -18,7 +19,7 @@ export class CustomerListComponent implements OnInit {
   public itemsTotal = 0;
   p = 1;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private tokenService: TokenService) {
   }
   public loadData() {
     this.http.get(environment.hostname + '/user/getUsersByAuthority/1?page=' + (this.activePage - 1)  +
@@ -37,10 +38,22 @@ export class CustomerListComponent implements OnInit {
     this.loadData();
   }
   public remove(item) {
-    let index;
-    index = this.data.indexOf(item);
-    if (index > -1) {
-      this.data.splice(index, 1);
+    let confirmDelete;
+    confirmDelete = confirm('Are you sure delete it?');
+    console.log(confirmDelete);
+    if (confirmDelete) {
+      let url;
+      url = `${environment.hostname}/user/${item.id}`;
+      this.tokenService.deleteDataWithToken(url).subscribe(data => {
+        let index;
+        index = this.data.indexOf(item);
+        if (index > -1) {
+          this.data.splice(index, 1);
+        }
+        alert('Delete Fail!');
+      }, err => {
+        alert('Delete Fail!');
+      });
     }
   }
   pageChanged(event) {

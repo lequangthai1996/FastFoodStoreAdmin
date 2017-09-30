@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-sm-2">
           <label class="label-control">Rows on page</label>
-          <select class="form-control input-sm" [(ngModel)]="rowsOnPage">
+          <select class="form-control input-sm" [(ngModel)]="rowsOnPage" (ngModelChange)="changeModel($event)">
             <option [ngValue]="5">5</option>
             <option [ngValue]="10">10</option>
             <option [ngValue]="15">15</option>
@@ -17,19 +17,17 @@
           <div class="row">
             <div class="offset-sm-1 col-sm-5">
               <div class="row">
-                <select class="form-control input-sm" [ngModel]="sortBy" (change)="sort(sortBy)">
-                  <option ngValue="id">ID</option>
+                <select class="form-control input-sm" [(ngModel)]="sortBy">
                   <option ngValue="name">Name</option>
-                  <option ngValue="address">Address</option>
-                  <option ngValue="phone">Phone</option>
-                  <option ngValue="createdAt">Create Date</option>
-                  <option ngValue="total">Total</option>
+                  <option ngValue="price">Price</option>
+                  <option ngValue="quantity">Quantity</option>
+                  <option ngValue="createdAt">Created Date</option>
                 </select>
               </div>
             </div>
             <div class="offset-sm-1 col-sm-5">
               <div class="row">
-                <select class="form-control input-sm" [ngModel]="sortOrder" (change)="sort(sortBy)">
+                <select class="form-control input-sm" [(ngModel)]="sortOrder">
                   <option ngValue="+">Ascending</option>
                   <option ngValue="-">Descending</option>
                   <option ngValue="badValue">Bad value</option>
@@ -38,38 +36,33 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div class="pull-right">
             <div class="button-wrapper">
-              <button [routerLink]="['new']" type="button" class="btn btn-primary  btn-md">Create</button>
+              <button [routerLink]="['/pages/promotion/create']" type="button" class="btn btn-primary  btn-md">Create</button>
             </div>
           </div>
         </div>
 
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading">List Order</div>
+        <div class="panel-heading">User information</div>
+
         <table class="table table-striped">
           <thead>
           <tr>
-            <th style="width: 20%">Action</th>
-            <th style="width: 5%">
-              <a (click)="sort('id')" >ID</a>
-            </th>
-            <th style="width: 15%">
-              <a (click)="sort('name')" >Name</a>
-            </th>
-            <th style="width: 20%">
-              <a (click)="sort('address')">Address</a>
+            <th style="width: 20%"></th>
+            <th style="width: 40%">
+              <a (click)="sort('title')" >Title</a>
             </th>
             <th style="width: 10%">
-              <a (click)="sort('phone')">Phone</a>
+              <a (click)="sort('fromAt')">Created Date</a>
             </th>
             <th style="width: 10%">
-              <a>Total</a>
+              <a (click)="sort('fromAt')">From Date</a>
             </th>
-            <th style="width: 20%">
-              <a (click)="sort('createdAt')">Create Date</a>
+            <th style="width: 10%">
+              <a (click)="sort('endAt')">End Date</a>
             </th>
           </tr>
           </thead>
@@ -79,20 +72,17 @@
                                                       currentPage: activePage,
                                                       totalItems: itemsTotal }">
             <td>
-              <button *ngIf="status === 1" title="Delete Order" (click)="remove(item)" class="btn btn-danger"><i class="ion-android-delete"></i></button>
-              <button title="Detail Order" [routerLink]="['/pages/orders/detail',item.id]" class="btn btn-info"><i class="ion-information-circled"></i></button>
+              <button title="Delete User" (click)="remove(item)" class="btn btn-danger"><i class="ion-android-delete"></i></button>
+              <button title="Detail User" [routerLink]="['/pages/promotion/detail',item.id]" class="btn btn-info"><i class="ion-information-circled"></i></button>
             </td>
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.address}}</td>
-            <td>{{item.phone}}</td>
-            <td>{{item.total}}</td>
-            <td>{{item.createdAt.split('T')[0]}}</td>
-          </tr>
+            <td>{{item.title}}</td>
+            <td>{{item.createAt!= null ? item.createAt.split('T')[0] : ''}}</td>
+            <td>{{item.fromAt!= null ? item.fromAt.split('T')[0] : ''}}</td>
+            <td>{{item.endAt!= null ? item.endAt.split('T')[0] : ''}}
           </tbody>
           <tfoot>
           <tr>
-            <td colspan="7">
+            <td colspan="5">
               <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
               <!--<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>-->
             </td>

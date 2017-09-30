@@ -49,6 +49,11 @@ export class AdminDetailComponent implements OnInit {
     // url: 'http://website.com/upload'
     url: '',
   };
+  public configDropZone = {
+    thumbnailWidth: 300,
+    thumbnailHeight: 300,
+    thumbnailMethod: 'contain'
+  };
   id: number;
   userForm: FormGroup;
   orders: any;
@@ -68,7 +73,26 @@ export class AdminDetailComponent implements OnInit {
     this.orders = [];
     this.id = 0;
   }
-
+  onRemoveFile(event) {
+    if (event.status === 'error') {
+      return false;
+    }
+    // this.http.get(environment.hostname + '/upload/remove?filename=' + event.name).subscribe(data => {
+    //   for (let count = 0; count < this.imageItems.length; count++) {
+    //     if (this.imageItems[count].image === event.name) {
+    //       this.imageItems.splice(count, 1);
+    //     }
+    //   }
+    // }, err => {
+    //   // this.onRemoveFile(event);
+    // });
+  }
+  onUploadError(event) {
+    console.log(event);
+  }
+  onUploadSuccess(event) {
+    // this.imageItems.push({'image' : event[0].name});
+  }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = +params['id'];
@@ -103,7 +127,6 @@ export class AdminDetailComponent implements OnInit {
   }
 
   save(model) {
-    console.log(model);
     if (!this.id) {
       let url, data;
       url = environment.hostname + '/user/createUser';
@@ -119,8 +142,8 @@ export class AdminDetailComponent implements OnInit {
         'creditCard': model.card,
         'authorities': this.checkboxModel
       };
-      console.log(JSON.stringify(data));
       this.tokenService.postDataWithToken(url, data).subscribe(res => {
+        alert('Create successful');
       });
     } else {
       let url, data;
@@ -135,13 +158,13 @@ export class AdminDetailComponent implements OnInit {
         'birthday': model.birthday,
         'avatar': 'add',
         'creditCard': model.card,
-        'authorities': this.checkboxModel
+        'authorities': this.checkboxModel.filter(item => item.checked === true)
       };
+      console.log(data);
       url = environment.hostname + '/user/updateByAdmin';
-      data = {};
-      this.tokenService.postDataWithToken(url, data).subscribe(res => {
+      this.tokenService.putDataWithToken(url, data).subscribe(res => {
+        alert('Update successful');
       });
     }
-    console.log(this.checkboxModel);
   }
 }

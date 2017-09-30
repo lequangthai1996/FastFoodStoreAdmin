@@ -54,7 +54,18 @@ export class InputProductComponent implements OnInit {
     this.profile = {
       picture: 'assets/img/app/profile/Nasta.png'
     };
+    this.inputItemForm = this.formBuilder.group({
+      name: new FormControl('', [Validators.required]),
+      category: new FormControl(0, [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      quantity: new FormControl('', [Validators.required,
+        Validators.minLength(0)]),
+      unit: new FormControl('1', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      expiredAt: new FormControl('', [Validators.required]),
+    });
     categoryService.getListCategory(2).subscribe(data => {
+      console.log(data);
       this.categories = data;
     });
     unitService.getListUnit().subscribe(data => {
@@ -73,8 +84,8 @@ export class InputProductComponent implements OnInit {
       this.id = +params['id'];
       if (this.id) {
         this.itemService.getItemById(this.id).subscribe(data => {
-          this.categoriesChoise = data.categories;
-          console.log(data);
+          this.categoriesChoise = data.category;
+          this.imageItems = data.imageItems;
           setTimeout( () =>  {
             this.inputItemForm = this.formBuilder.group({
               name: new FormControl(data.name, [Validators.required]),
@@ -105,20 +116,10 @@ export class InputProductComponent implements OnInit {
                 });
               }
             };
-          }, 2000);
+          }, 3000);
         });
       } else {
         this.id = 0;
-        this.inputItemForm = this.formBuilder.group({
-          name: new FormControl('', [Validators.required]),
-          category: new FormControl(0, [Validators.required]),
-          price: new FormControl('', [Validators.required]),
-          quantity: new FormControl('', [Validators.required,
-            Validators.minLength(0)]),
-          unit: new FormControl('1', [Validators.required]),
-          description: new FormControl('', [Validators.required]),
-          expiredAt: new FormControl('', [Validators.required]),
-        });
       }
     });
     // this.inputItemForm.controls['category'].valueChanges.subscribe(value => {
@@ -156,7 +157,8 @@ export class InputProductComponent implements OnInit {
 
   save(model) {
     let data;
-    if (this.id) {
+    console.log(this.id);
+    if (!this.id) {
       data = {
         'name': model.name,
         'price': model.price,
@@ -176,7 +178,9 @@ export class InputProductComponent implements OnInit {
       };
       this.tokenService.postDataWithToken(environment.hostname + '/item/create', data)
         .subscribe(data2 => {
-          console.log(data2);
+          alert('Create Success!');
+        }, err => {
+          alert('Create Fail!');
         });
     } else {
       data = {
@@ -197,9 +201,11 @@ export class InputProductComponent implements OnInit {
         },
         'imageItems': this.imageItems
       };
-      this.tokenService.postDataWithToken(environment.hostname + '/item/update', data)
+      this.tokenService.putDataWithToken(environment.hostname + '/item/update', data)
         .subscribe(data2 => {
-          console.log(data2);
+          alert('Update Success!');
+        }, err => {
+          alert('Update Fail!');
         });
     }
   }

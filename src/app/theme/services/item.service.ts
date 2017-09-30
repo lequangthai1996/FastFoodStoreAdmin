@@ -48,4 +48,8 @@ export class ItemService {
         return this.http.get(environment.hostname + '/item/search?key=' + key + '&page=' + page + '&size=' + size)
             .map(res => res.json());
     }
+    filterOfSupplier(key: string, supplierId: number) {
+      return this.http.get(`${environment.hostname}/item/search/supplier/${supplierId}?key=${key}`)
+        .map(res => res.json());
+    }
 }

@@ -11,6 +11,7 @@ import {OrderListComponent} from './components/List/list.component';
 import {OrderComponent} from './orders.component';
 import {routing} from './orders.routing';
 import {OrderDetailComponent} from './components/Detail/orderDetail.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {OrderDetailComponent} from './components/Detail/orderDetail.component';
     CommonModule,
     PagerModule,
     routing,
-    TablesModule
+    TablesModule,
+    NgxPaginationModule
   ],
   declarations: [
     OrderComponent,

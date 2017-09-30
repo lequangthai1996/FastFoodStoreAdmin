@@ -5,6 +5,7 @@ import {ShareService} from './share.service';
 import swal from 'sweetalert2';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import {environment} from '../../../environments/environment';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class TokenService {
@@ -15,7 +16,8 @@ export class TokenService {
   headers: any;
   public login = new Subject<any>();
   constructor(private http: Http,
-              private shareService: ShareService) {
+              private shareService: ShareService, private router: Router) {
+    this.isAuthenticated();
     this.getInfo();
     this.isAdmin = false;
     this.headers = new Headers();
@@ -43,7 +45,6 @@ export class TokenService {
           this.isAdmin = true;
         }
       }
-     console.log(data);
     }, (err: any) => {
       if (err.status === 401) {
         this.refreshToken().subscribe((data: any) => {
@@ -71,6 +72,16 @@ export class TokenService {
       headers: this.headers
     }).map(res => res.json());
   }
+  putDataWithToken(url, data) {
+    return this.http.put(url, data, {
+      headers: this.headers
+    }).map(res => res.json());
+  }
+  deleteDataWithToken(url) {
+    return this.http.delete(url, {
+      headers: this.headers
+    }).map(res => res.json());
+  }
   getRole() {
     const url = environment.hostname + '/role';
     let headers;
@@ -83,19 +94,22 @@ export class TokenService {
     console.log(options);
     return this.http.get(url, options).map(res => res.json());
   }
-  issAdmin() {
+  isAuthenticated() {
     this.getRole().subscribe((data: any) => {
+      console.log(data);
       for (const authority of data) {
-        if (authority  === 'ROLE_ADMIN') {
+        if (authority  === 'ROLE_ADMIN' || authority === 'ROLE_SUPPLIER') {
           return true;
         }
       }
+      this.router.navigate(['/login']);
       return false;
     }, (err: any) => {
       if (err.status === 401) {
         this.refreshToken().subscribe((data: any) => {
           this.setToken(data);
-          this.isAdmin();
+        }, err2 => {
+          this.router.navigate(['/login']);
         });
       }
     });

@@ -15,7 +15,18 @@ import {TablesModule} from '../tables/tables.module';
 import {AdminDetailComponent} from './components/Admin/adminDetail.component';
 import {NG2DataTableModule} from 'angular2-datatable-pagination';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+const DROPZONE_CONFIG: DropzoneConfigInterface = {
+  // Change this to your upload POST address:
+  url: 'http://localhost:8089/upload/upload',
+  maxFilesize: 1,
+  acceptedFiles: 'image/*',
+  addRemoveLinks: true,
+  thumbnailWidth: 300,
+  thumbnailHeight: 300,
+  thumbnailMethod: 'contain'
+};
 @NgModule({
   imports: [
     NgaModule,
@@ -27,7 +38,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     routing,
     TablesModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DropzoneModule.forRoot(DROPZONE_CONFIG),
   ],
   declarations: [
     UsersComponent,

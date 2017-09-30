@@ -10,11 +10,12 @@ import {ActivateGuard} from '../theme/security/activate.guard';
 import {DataFilterPipe} from './tables/components/dataTables/data-filter.pipe';
 import {TokenService} from '../theme/services/token.service';
 import {ShareService} from '../theme/services/share.service';
+import {NoLoggedGuard} from '../theme/security/no-logged.guard';
 
 @NgModule({
   imports: [CommonModule, AppTranslationModule, NgaModule, routing],
   declarations: [Pages],
-  providers: [ActivateGuard, TokenService, ShareService]
+  providers: [ActivateGuard, TokenService, ShareService, NoLoggedGuard]
 })
 export class PagesModule {
 }

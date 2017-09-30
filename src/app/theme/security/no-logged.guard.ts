@@ -16,7 +16,7 @@ export class NoLoggedGuard implements CanActivate {
     if (!this.tokenService.isLogged()) {
       return true;
     }
-    this.router.navigate(['/home']);
+    this.router.navigate(['/pages']);
     return false;
   }
 }

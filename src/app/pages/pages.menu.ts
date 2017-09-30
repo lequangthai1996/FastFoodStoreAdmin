@@ -95,10 +95,10 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: 'list',
+            path: 'canceled',
             data: {
               menu: {
-                title: 'general.menu.list_order',
+                title: 'general.menu.list_order_canceled',
               }
             }
           },
@@ -117,7 +117,15 @@ export const PAGES_MENU = [
                 title: 'general.menu.list_order_pending',
               }
             }
-          }
+          },
+          {
+            path: 'finished',
+            data: {
+              menu: {
+                title: 'general.menu.list_order_finished',
+              }
+            }
+          },
         ]
       },
       {
@@ -133,10 +141,10 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: 'supplier',
+            path: 'list',
             data: {
               menu: {
-                title: 'general.menu.supplier',
+                title: 'general.menu.promotion_list',
               }
             }
           }
@@ -275,28 +283,28 @@ export const PAGES_MENU = [
       //     }
       //   ]
       // },
-      // {
-      //   path: 'charts',
-      //   data: {
-      //     menu: {
-      //       title: 'general.menu.charts',
-      //       icon: 'ion-stats-bars',
-      //       selected: false,
-      //       expanded: false,
-      //       order: 200,
-      //     }
-      //   },
-      //   children: [
-      //     {
-      //       path: 'chartist-js',
-      //       data: {
-      //         menu: {
-      //           title: 'general.menu.chartist_js',
-      //         }
-      //       }
-      //     }
-      //   ]
-      // },
+      {
+        path: 'charts',
+        data: {
+          menu: {
+            title: 'general.menu.charts',
+            icon: 'ion-stats-bars',
+            selected: false,
+            expanded: false,
+            order: 200,
+          }
+        },
+        children: [
+          {
+            path: 'chartist-js',
+            data: {
+              menu: {
+                title: 'general.menu.chartist_js',
+              }
+            }
+          }
+        ]
+      },
       // {
       //   path: 'ui',
       //   data: {

@@ -2,14 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {environment} from '../../../../../environments/environment';
 import {CategoryService} from '../../../../theme/services/category.service';
-import {TokenService} from '../../../../theme/services/token.service';
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './productList.html',
-  styleUrls: ['./productList.scss'],
+  templateUrl: './promotionList.html',
+  styleUrls: ['./promotionList.scss'],
 })
-export class ProductListComponent implements OnInit {
+export class PromotionListComponent implements OnInit {
 
   public data: any[];
   public filterQuery = '';
@@ -18,20 +17,13 @@ export class ProductListComponent implements OnInit {
   public sortBy = 'createdAt';
   public sortOrder = '+';
   public itemsTotal = 0;
-  public category = null;
   p = 1;
-  public categories = null;
-  constructor(private categoryService: CategoryService, private http: Http, private tokenService: TokenService) {
-    this.categories = [];
-    categoryService.getListCategory(2).subscribe(data => {
-      this.categories = data;
-    });
+  constructor(private categoryService: CategoryService, private http: Http) {
   }
   public loadData() {
     let url;
-    url = environment.hostname + '/item/all?page=' + (this.activePage - 1)  +
-    '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy + ((this.category === null) ? '' : ('&category=' + this.category));
-    console.log(url);
+    url = environment.hostname + '/promotion/all?page=' + (this.activePage - 1)  +
+    '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy;
     this.http.get(url).
       map(res => res.json()).subscribe((data) => {
         setTimeout(() => {
@@ -59,22 +51,10 @@ export class ProductListComponent implements OnInit {
   }
 
   public remove(item) {
-    let confirmDelete;
-    confirmDelete = confirm('Are you sure delete it?');
-    console.log(confirmDelete);
-    if (confirmDelete) {
-      let url;
-      url = `${environment.hostname}/item/delete/${item.id}`;
-      this.tokenService.deleteDataWithToken(url).subscribe(data => {
-        let index;
-        index = this.data.indexOf(item);
-        if (index > -1) {
-          this.data.splice(index, 1);
-        }
-        alert('Delete Fail!');
-      }, err => {
-        alert('Delete Fail!');
-      });
+    let index;
+    index = this.data.indexOf(item);
+    if (index > -1) {
+      this.data.splice(index, 1);
     }
   }
   pageChanged(event) {

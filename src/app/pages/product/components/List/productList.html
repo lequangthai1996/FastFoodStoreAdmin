@@ -85,7 +85,7 @@
             <td>{{item.name}}</td>
             <td>{{item.price}}</td>
             <td class="text-left">{{item.quantity}}</td>
-            <td>{{item.createdAt | uppercase}}</td>
+            <td>{{item.createdAt.split('T')[0] | uppercase}}</td>
           </tr>
           </tbody>
           <tfoot>

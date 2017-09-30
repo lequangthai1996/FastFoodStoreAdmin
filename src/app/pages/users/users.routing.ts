@@ -26,6 +26,7 @@ const routes: Routes = [
         { path: 'detail/:id', component: AdminDetailComponent },
         { path: 'new', component: AdminDetailComponent },
       ]},
+      { path: 'detail/:id', component: AdminDetailComponent },
     ],
   },
 ];
