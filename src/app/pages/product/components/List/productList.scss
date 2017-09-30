@@ -1,0 +1,31 @@
+@import '../../../../theme/sass/conf/conf';
+:host /deep/ .widgets {
+  .data-table-container {
+    width: 100%;
+    .panel-heading {
+      margin-top: 25px;
+    }
+  }
+}
+:host /deep/ {
+  .handsontable {
+    tr:first-child th, tr:first-child td {
+      border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+
+    th:first-child, th:nth-child(2), td:first-of-type, .htNoFrame + th, .htNoFrame + td {
+      border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+
+    td, th {
+      border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+      background-color: transparent !important;
+      color: #fff;
+    }
+  }
+}
+
+a:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+@import '../../../../theme/sass/conf/conf';
+:host /deep/ .widgets {
+  .data-table-container {
+    width: 100%;
+    .panel-heading {
+      margin-top: 25px;
+    }
+  }
+}
+/deep/.cke_source {
+  color: $dropdown-text!important;
+}
+.has-feedback label ~ .form-control-feedback {
+  top: 36px;
+  font-size: 18px;
+}
+.form-control-feedback {
+  font-size: 18px;
+}
+.help-block {
+  color: #fa4d4a;
+}

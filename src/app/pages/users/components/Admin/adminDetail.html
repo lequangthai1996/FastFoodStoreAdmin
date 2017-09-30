@@ -1,0 +1,131 @@
+<div class="widgets">
+  <ba-card cardTitle="Profile user" baCardClass="with-scroll">
+  <div class="row">
+    <div class="col-md-4">
+      <ba-card cardTitle="Avatar" baCardClass="with-scroll">
+        <!--<ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>-->
+        <dropzone id="myVueDropzone" [config]="configDropZone" (removedfile)="onRemoveFile($event)" [message]="'Click or drag images here to upload'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+
+      </ba-card>
+      <style>
+        .dz-preview {
+          width: 250px;
+          height: 250px;
+        }
+      </style>
+      <ba-card cardTitle="Set Password" baCardClass="with-scroll">
+        <form class="form-horizontal">
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <input type="email" class="form-control" placeholder="Password">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <input type="email" class="form-control" placeholder="Confirm Password">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+              <button type="submit" class="btn btn-warning">Set password</button>
+            </div>
+          </div>
+        </form>
+      </ba-card>
+    </div>
+    <div class="col-md-8">
+      <ba-card cardTitle="Information basic" baCardClass="with-scroll">
+        <form class="form-horizontal" [formGroup]="userForm" (ngSubmit)="save(userForm.value)">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Name</label>
+            <div class="col-sm-10">
+              <input type="email" formControlName="name" class="form-control" id="inputEmail3" placeholder="Name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" formControlName="email" class="form-control" placeholder="Email">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Birthday</label>
+            <div class="col-sm-10">
+              <input type="date" formControlName="birthday" class="form-control" placeholder="Birthday">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Address</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="address" class="form-control" placeholder="Address">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Credit Card</label>
+            <div class="col-sm-10">
+              <input type="email" formControlName="card" class="form-control" placeholder="Credit Card">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Gender</label>
+            <div class="col-sm-10">
+              <div class="input-demo radio-demo row">
+                <div class="col-md-4">
+                  <label class="radio-inline custom-radio nowrap">
+                    <input type="radio" formControlName="gender" name="gender" id="inlineRadio1" value="true">
+                    <span>Male</span>
+                  </label>
+                </div>
+                <div class="col-md-4">
+                  <label class="radio-inline custom-radio nowrap">
+                    <input type="radio" formControlName="gender" name="gender" id="inlineRadio2" value="false">
+                    <span>Female</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Authority</label>
+            <div class="col-sm-10">
+              <div class="input-demo checkbox-demo row">
+                <ba-multi-checkbox [(ngModel)]="checkboxModel" [ngModelOptions]="{standalone: true}" [propertiesMapping]="checkboxPropertiesMapping"></ba-multi-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+              <button type="submit" class="btn btn-warning">Save</button>
+            </div>
+          </div>
+        </form>
+      </ba-card>
+    </div>
+  </div>
+  </ba-card>
+  <ba-card cardTitle="List order of user" baCardClass="with-scroll">
+    <div class="vertical-scroll">
+      <table class="table table-hover">
+        <thead>
+        <tr class="black-muted-bg">
+          <th>Order ID</th>
+          <th class="align-right">Total</th>
+          <th class="align-right">Address</th>
+          <th class="align-right">Status</th>
+          <th class="align-right">Created Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of orders" class="no-top-border">
+          <td ngClass="nowrap"><a [routerLink]="['/pages/orders/detail',item.id]">{{item.id}}</a></td>
+          <td class="align-right">{{item.total}}</td>
+          <td class="align-right">{{item.address}}</td>
+          <td class="align-right">
+            <button type="submit" class="btn btn-warning">{{item.status}}</button></td>
+          <td class="align-right">{{item.transportedAt !== null ? (item.transportedAt.split('T')[0]) : ''}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </ba-card>
+</div>
