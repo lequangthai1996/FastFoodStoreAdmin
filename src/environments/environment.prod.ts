@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  hostname: 'http://localhost:8080',
+  hostname: 'http://foodmarket.ddns.net:8080',
 };

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { NgUploaderOptions } from 'ngx-uploader';
 import './ckeditor.loader';
 import 'ckeditor';
-import {DropzoneComponent, DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
+import {DropzoneComponent, DropzoneConfig, DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {CategoryService} from '../../../../theme/services/category.service';
 import {UnitService} from '../../../../theme/services/unit.service';
 import {Http} from '@angular/http';
@@ -24,8 +24,6 @@ export class InputProductComponent implements OnInit {
     height: '300',
   };
   inputItemForm: FormGroup;
-  public configDropZone = {
-  };
   id: number;
   isRemember = false;
   defaultPicture = 'assets/img/theme/no-photo.png';
@@ -50,7 +48,12 @@ export class InputProductComponent implements OnInit {
               private tokenService: TokenService,
               private route: ActivatedRoute,
               private router: Router,
-              private itemService: ItemService) {
+              private itemService: ItemService,
+              public  configDropZone: DropzoneConfig) {
+    this.configDropZone.headers = {
+      'Accept': 'application/json',
+      'Authorization': this.tokenService.getToken()
+    };
     this.profile = {
       picture: 'assets/img/app/profile/Nasta.png'
     };
@@ -97,25 +100,43 @@ export class InputProductComponent implements OnInit {
               description: new FormControl(data.description, [Validators.required]),
               expiredAt: new FormControl('', [Validators.required]),
             });
-            this.configDropZone = {
-              uiColor: '#F0F3F4',
-              height: '300',
-              autoDiscover: false,
-              init: function () {
-                let thisDropzone;
-                thisDropzone = this;
-                //// Create the mock file:
-                data.imageItems.forEach(item => {
-                  const mockFile = {
-                    name: 'Image detail',
-                  };
-                  console.log('init');
-                  thisDropzone.emit('addedfile', mockFile);
-                  thisDropzone.emit('thumbnail', mockFile, item.image);
-                  thisDropzone.emit('complete', mockFile);
-                });
-              }
+            let i = 0;
+            this.configDropZone.init = function () {
+                i = i + 1;
+                if (i === 1) {
+                  let thisDropzone;
+                  thisDropzone = this;
+                  //// Create the mock file:
+                  data.imageItems.forEach(item => {
+                    const mockFile = {
+                      name: 'Image detail',
+                    };
+                    console.log('init');
+                    thisDropzone.emit('addedfile', mockFile);
+                    thisDropzone.emit('thumbnail', mockFile, item.image);
+                    thisDropzone.emit('complete', mockFile);
+                  });
+                }
             };
+            // this.configDropZone = {
+            //   uiColor: '#F0F3F4',
+            //   height: '300',
+            //   autoDiscover: false,
+            //   init: function () {
+            //     let thisDropzone;
+            //     thisDropzone = this;
+            //     //// Create the mock file:
+            //     data.imageItems.forEach(item => {
+            //       const mockFile = {
+            //         name: 'Image detail',
+            //       };
+            //       console.log('init');
+            //       thisDropzone.emit('addedfile', mockFile);
+            //       thisDropzone.emit('thumbnail', mockFile, item.image);
+            //       thisDropzone.emit('complete', mockFile);
+            //     });
+            //   }
+            // };
           }, 3000);
         });
       } else {
