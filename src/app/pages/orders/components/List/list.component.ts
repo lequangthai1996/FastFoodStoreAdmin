@@ -4,6 +4,7 @@ import { DataTablesService } from '../../../tables/components/dataTables/dataTab
 import {environment} from '../../../../../environments/environment';
 import {Http} from '@angular/http';
 import {ActivatedRoute} from '@angular/router';
+import {TokenService} from '../../../../theme/services/token.service';
 
 @Component({
   selector: 'app-order-list',
@@ -24,7 +25,8 @@ export class OrderListComponent implements OnInit {
   p = 1;
 
   constructor(private service: DataTablesService, private http: Http,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private tokenService: TokenService) {
     // this.service.getData().then((data) => {
     //   this.data = data;
     // });
@@ -48,9 +50,9 @@ export class OrderListComponent implements OnInit {
     }
   }
   public loadData() {
-    this.http.get(environment.hostname + '/order/getOrderByStatus?status=' + this.status + '&page=' + (this.activePage - 1)  +
-      '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy).
-    map(res => res.json()).subscribe((data) => {
+    this.tokenService.getDataWithToken(environment.hostname + '/order/getOrderByStatus?status='
+      + this.status + '&page=' + (this.activePage - 1)  + '&size=' + this.rowsOnPage + '&sort='
+      + this.sortOrder + this.sortBy).subscribe((data) => {
       setTimeout(() => {
         console.log(data);
         this.data = data.content;

@@ -91,14 +91,19 @@ export class TokenService {
     options = new RequestOptions({
       headers: headers
     });
-    console.log(options);
     return this.http.get(url, options).map(res => res.json());
+  }
+  isRoleAdmin() {
+    if (this.isAdmin) {
+      return true;
+    }
+    this.router.navigate(['/login']);
+    return false;
   }
   isAuthenticated() {
     this.getRole().subscribe((data: any) => {
-      console.log(data);
-      for (const authority of data) {
-        if (authority  === 'ROLE_ADMIN' || authority === 'ROLE_SUPPLIER') {
+      for (const item of data) {
+        if (item.authority  === 'ROLE_ADMIN' || item.authority === 'ROLE_SUPPLIER') {
           return true;
         }
       }

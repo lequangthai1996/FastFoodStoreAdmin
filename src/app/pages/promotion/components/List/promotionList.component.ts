@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {environment} from '../../../../../environments/environment';
 import {CategoryService} from '../../../../theme/services/category.service';
+import {TokenService} from '../../../../theme/services/token.service';
 
 @Component({
   selector: 'app-product-list',
@@ -18,14 +19,14 @@ export class PromotionListComponent implements OnInit {
   public sortOrder = '+';
   public itemsTotal = 0;
   p = 1;
-  constructor(private categoryService: CategoryService, private http: Http) {
+  constructor(private categoryService: CategoryService, private http: Http,
+              private tokenService: TokenService) {
   }
   public loadData() {
     let url;
     url = environment.hostname + '/promotion/all?page=' + (this.activePage - 1)  +
     '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy;
-    this.http.get(url).
-      map(res => res.json()).subscribe((data) => {
+    this.tokenService.getDataWithToken(url).subscribe((data) => {
         setTimeout(() => {
           console.log(data);
           this.data = data.content;

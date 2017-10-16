@@ -27,9 +27,9 @@ export class AdminListComponent implements OnInit {
     // });
   }
   public loadData() {
-    this.http.get(environment.hostname + '/user/getUsersByAuthority/2?page=' + (this.activePage - 1)  +
-      '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy).
-      map(res => res.json()).subscribe((data) => {
+    this.tokenService.getDataWithToken(environment.hostname + '/user/getUsersByAuthority/2?page=' + (this.activePage - 1)  +
+      '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy)
+      .subscribe((data) => {
         setTimeout(() => {
           console.log(data);
           this.data = data.content;

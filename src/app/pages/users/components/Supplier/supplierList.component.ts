@@ -21,9 +21,9 @@ export class SupplierListComponent implements OnInit {
   constructor(private http: Http, private tokenService: TokenService) {
   }
   public loadData() {
-    this.http.get(environment.hostname + '/user/getUsersByAuthority/3?page=' + (this.activePage - 1)  +
+    this.tokenService.getDataWithToken(environment.hostname + '/user/getUsersByAuthority/3?page=' + (this.activePage - 1)  +
       '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy).
-    map(res => res.json()).subscribe((data) => {
+    subscribe((data) => {
       setTimeout(() => {
         console.log(data);
         this.data = data.content;

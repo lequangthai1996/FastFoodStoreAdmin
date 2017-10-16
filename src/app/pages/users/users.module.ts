@@ -17,6 +17,8 @@ import {NG2DataTableModule} from 'angular2-datatable-pagination';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import {ProfileComponent} from "./components/profile.component";
+import {AdminGuard} from "../../theme/security/admin.guard";
 const DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: 'http://localhost:8089/upload/upload',
@@ -47,9 +49,10 @@ const DROPZONE_CONFIG: DropzoneConfigInterface = {
     SupplierListComponent,
     AdminListComponent,
     AdminDetailComponent,
+    ProfileComponent
     ],
   providers: [
-    DataTablesService
+    DataTablesService, AdminGuard
   ],
 })
 export class UsersModule {
