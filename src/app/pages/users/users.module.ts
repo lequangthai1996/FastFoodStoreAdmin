@@ -19,6 +19,10 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import {ProfileComponent} from "./components/profile.component";
 import {AdminGuard} from "../../theme/security/admin.guard";
+import {Ng2CloudinaryModule} from 'ng2-cloudinary';
+import {FileSelectDirective} from 'ng2-file-upload';
+import {FileUploadModule} from 'ng2-cloudinary/dist/esm/src/cloudinary-uploader.service';
+
 const DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: 'http://localhost:8089/upload/upload',
@@ -41,6 +45,8 @@ const DROPZONE_CONFIG: DropzoneConfigInterface = {
     TablesModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    Ng2CloudinaryModule,
+    FileUploadModule,
     DropzoneModule.forRoot(DROPZONE_CONFIG),
   ],
   declarations: [
