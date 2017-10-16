@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { Pages } from './pages.component';
 import { ModuleWithProviders } from '@angular/core';
 import { ActivateGuard } from '../theme/security/activate.guard';
-import {SupplierGuard} from '../theme/security/supplier.guard';
+import {AdminGuard} from '../theme/security/admin.guard';
 import {NoLoggedGuard} from '../theme/security/no-logged.guard';
 // noinspection TypeScriptValidateTypes
 

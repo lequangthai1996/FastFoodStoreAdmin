@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 
 import { BaMenuService } from '../theme';
-import { PAGES_MENU } from './pages.menu';
+import {PAGES_MENU_ADMIN, PAGES_MENU_SUPPLIER} from './pages.menu';
+import {TokenService} from "../theme/services/token.service";
 
 @Component({
   selector: 'pages',
@@ -32,10 +33,21 @@ import { PAGES_MENU } from './pages.menu';
 })
 export class Pages {
 
-  constructor(private _menuService: BaMenuService) {
+  constructor(private _menuService: BaMenuService, private tokenService: TokenService) {
   }
 
   ngOnInit() {
-    this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
+    this.tokenService.getRole().subscribe(data => {
+      console.log(data);
+      for (let item of data) {
+        if (item.authority  === 'ROLE_ADMIN') {
+          this.tokenService.isAdmin = true;
+          this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_ADMIN);
+          return true;
+        }
+      }
+      this.tokenService.isAdmin = false;
+      this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_SUPPLIER);
+    });
   }
 }
