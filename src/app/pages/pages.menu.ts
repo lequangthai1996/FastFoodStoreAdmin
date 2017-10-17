@@ -95,6 +95,14 @@ export const PAGES_MENU_ADMIN = [
         },
         children: [
           {
+            path: 'payment',
+            data: {
+              menu: {
+                title: 'general.menu.payment',
+              }
+            }
+          },
+          {
             path: 'canceled',
             data: {
               menu: {
@@ -635,6 +643,14 @@ export const PAGES_MENU_SUPPLIER = [
           }
         },
         children: [
+          {
+            path: 'payment',
+            data: {
+              menu: {
+                title: 'general.menu.payment',
+              }
+            }
+          },
           {
             path: 'canceled',
             data: {

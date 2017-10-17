@@ -28,6 +28,7 @@
       "input_product": "Input Product",
       "list_product": "List Product",
       "manage_order": "Manage Order",
+      "payment": "Payment",
       "list_order_canceled": "List Order Canceled",
       "list_order_approved": "List Order Approved",
       "list_order_pending": "List Order Pending",

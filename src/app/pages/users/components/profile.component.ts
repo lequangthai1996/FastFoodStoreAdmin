@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {TokenService} from '../../../theme/services/token.service';
 import {environment} from '../../../../environments/environment';
 import {CloudinaryOptions, CloudinaryUploader} from 'ng2-cloudinary';
+import {DropzoneConfig} from "ngx-dropzone-wrapper";
 
 @Component({
   selector: 'app-profile',
