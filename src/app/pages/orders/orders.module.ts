@@ -12,6 +12,7 @@ import {OrderComponent} from './orders.component';
 import {routing} from './orders.routing';
 import {OrderDetailComponent} from './components/Detail/orderDetail.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {PaymentComponent} from './components/payment.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
   declarations: [
     OrderComponent,
     OrderListComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    PaymentComponent
     ],
   providers: [
     DataTablesService,

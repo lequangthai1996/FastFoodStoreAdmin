@@ -22,8 +22,8 @@ export class OrderDetailComponent implements OnInit {
   sort() {
   }
   public loadData() {
-    this.http.get(environment.hostname + '/order/' + this.id).
-    map(res => res.json()).subscribe((data) => {
+    this.tokenService.getDataWithToken(environment.hostname + '/order/' + this.id)
+      .subscribe((data) => {
       setTimeout(() => {
         console.log(data);
         this.data = data;

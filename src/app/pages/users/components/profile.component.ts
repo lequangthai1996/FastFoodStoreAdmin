@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {TokenService} from '../../../theme/services/token.service';
 import {environment} from '../../../../environments/environment';
 import {CloudinaryOptions, CloudinaryUploader} from 'ng2-cloudinary';
+import {DropzoneConfig} from "ngx-dropzone-wrapper";
 
 @Component({
   selector: 'app-profile',
@@ -66,7 +67,13 @@ export class ProfileComponent implements OnInit {
   constructor(private _basicTablesService: BasicTablesService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private tokenService: TokenService) {
+              private tokenService: TokenService,
+              public config: DropzoneConfig) {
+
+    this.config.headers = {
+      'Accept': 'application/json',
+      'Authorization': this.tokenService.getToken()
+    };
     this.metricsTableData = _basicTablesService.metricsTableData;
     this.userForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),

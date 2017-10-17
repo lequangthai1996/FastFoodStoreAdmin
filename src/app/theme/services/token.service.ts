@@ -24,6 +24,7 @@ export class TokenService {
     this.headers.append('Authorization', this.getToken());
     this.headers.append('Accept', 'application/json');
     this.headers.append('Content-type', 'application/json');
+    console.log(this.headers);
   }
   /** Get information basic of user */
   getInfo() {
