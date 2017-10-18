@@ -1,7 +1,7 @@
 {
   "login": {
-    "title": "Sign in to ng2-admin",
-    "signup_link": "New to ng2-admin? Sign up!",
+    "title": "Sign in to MegaShop",
+    "signup_link": "New to MegaShop? Sign up!",
     "email": "Email",
     "password": "Password",
     "sign_in": "Sign in",
@@ -28,7 +28,7 @@
       "input_product": "Input Product",
       "list_product": "List Product",
       "manage_order": "Manage Order",
-      "payment": "Payment",
+      "payment": "Pay",
       "list_order_canceled": "List Order Canceled",
       "list_order_approved": "List Order Approved",
       "list_order_pending": "List Order Pending",

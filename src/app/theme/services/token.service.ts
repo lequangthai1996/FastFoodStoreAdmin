@@ -24,7 +24,6 @@ export class TokenService {
     this.headers.append('Authorization', this.getToken());
     this.headers.append('Accept', 'application/json');
     this.headers.append('Content-type', 'application/json');
-    console.log(this.headers);
   }
   /** Get information basic of user */
   getInfo() {
@@ -141,6 +140,10 @@ export class TokenService {
   }
   setToken(token) {
     Cookie.set(TokenService.TOKEN_KEY, token.token, token.expire / 3600);
+    this.headers = new Headers();
+    this.headers.append('Authorization', this.getToken());
+    this.headers.append('Accept', 'application/json');
+    this.headers.append('Content-type', 'application/json');
   }
   removeToken() {
     Cookie.delete(TokenService.TOKEN_KEY);
