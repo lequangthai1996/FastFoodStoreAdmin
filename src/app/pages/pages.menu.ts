@@ -224,28 +224,28 @@ export const PAGES_MENU_ADMIN = [
       //     }
       //   ]
       // },
-       {
-        path: 'statistic',
-        data: {
-          menu: {
-            title: 'general.menu.statistic',
-            icon: 'ion-pricetag',
-            selected: false,
-            expanded: false,
-            order: 100,
-          }
-        },
-        children: [
-          {
-            path: 'supplier',
-            data: {
-              menu: {
-                title: 'general.menu.supplier',
-              }
-            }
-          }
-        ]
-      },
+      //  {
+      //   path: 'statistic',
+      //   data: {
+      //     menu: {
+      //       title: 'general.menu.statistic',
+      //       icon: 'ion-pricetag',
+      //       selected: false,
+      //       expanded: false,
+      //       order: 100,
+      //     }
+      //   },
+      //   children: [
+      //     {
+      //       path: 'supplier',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.supplier',
+      //         }
+      //       }
+      //     }
+      //   ]
+      // },
       // {
       //   path: 'editors',
       //   data: {
@@ -291,28 +291,28 @@ export const PAGES_MENU_ADMIN = [
       //     }
       //   ]
       // },
-      {
-        path: 'charts',
-        data: {
-          menu: {
-            title: 'general.menu.charts',
-            icon: 'ion-stats-bars',
-            selected: false,
-            expanded: false,
-            order: 200,
-          }
-        },
-        children: [
-          {
-            path: 'chartist-js',
-            data: {
-              menu: {
-                title: 'general.menu.chartist_js',
-              }
-            }
-          }
-        ]
-      },
+      // {
+      //   path: 'charts',
+      //   data: {
+      //     menu: {
+      //       title: 'general.menu.charts',
+      //       icon: 'ion-stats-bars',
+      //       selected: false,
+      //       expanded: false,
+      //       order: 200,
+      //     }
+      //   },
+      //   children: [
+      //     {
+      //       path: 'chartist-js',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.chartist_js',
+      //         }
+      //       }
+      //     }
+      //   ]
+      // },
       // {
       //   path: 'ui',
       //   data: {
@@ -631,82 +631,82 @@ export const PAGES_MENU_SUPPLIER = [
           }
         ]
       },
-      {
-        path: 'orders',
-        data: {
-          menu: {
-            title: 'general.menu.manage_order',
-            icon: 'ion-pricetag',
-            selected: false,
-            expanded: false,
-            order: 100,
-          }
-        },
-        children: [
-          {
-            path: 'payment',
-            data: {
-              menu: {
-                title: 'general.menu.payment',
-              }
-            }
-          },
-          {
-            path: 'canceled',
-            data: {
-              menu: {
-                title: 'general.menu.list_order_canceled',
-              }
-            }
-          },
-          {
-            path: 'approved',
-            data: {
-              menu: {
-                title: 'general.menu.list_order_approved',
-              }
-            }
-          },
-          {
-            path: 'pending',
-            data: {
-              menu: {
-                title: 'general.menu.list_order_pending',
-              }
-            }
-          },
-          {
-            path: 'finished',
-            data: {
-              menu: {
-                title: 'general.menu.list_order_finished',
-              }
-            }
-          },
-        ]
-      },
-      {
-        path: 'promotion',
-        data: {
-          menu: {
-            title: 'general.menu.manage_promotion',
-            icon: 'ion-pricetag',
-            selected: false,
-            expanded: false,
-            order: 100,
-          }
-        },
-        children: [
-          {
-            path: 'list',
-            data: {
-              menu: {
-                title: 'general.menu.promotion_list',
-              }
-            }
-          }
-        ]
-      },
+      // {
+      //   path: 'orders',
+      //   data: {
+      //     menu: {
+      //       title: 'general.menu.manage_order',
+      //       icon: 'ion-pricetag',
+      //       selected: false,
+      //       expanded: false,
+      //       order: 100,
+      //     }
+      //   },
+      //   children: [
+      //     {
+      //       path: 'payment',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.payment',
+      //         }
+      //       }
+      //     },
+      //     {
+      //       path: 'canceled',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.list_order_canceled',
+      //         }
+      //       }
+      //     },
+      //     {
+      //       path: 'approved',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.list_order_approved',
+      //         }
+      //       }
+      //     },
+      //     {
+      //       path: 'pending',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.list_order_pending',
+      //         }
+      //       }
+      //     },
+      //     {
+      //       path: 'finished',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.list_order_finished',
+      //         }
+      //       }
+      //     },
+      //   ]
+      // },
+      // {
+      //   path: 'promotion',
+      //   data: {
+      //     menu: {
+      //       title: 'general.menu.manage_promotion',
+      //       icon: 'ion-pricetag',
+      //       selected: false,
+      //       expanded: false,
+      //       order: 100,
+      //     }
+      //   },
+      //   children: [
+      //     {
+      //       path: 'list',
+      //       data: {
+      //         menu: {
+      //           title: 'general.menu.promotion_list',
+      //         }
+      //       }
+      //     }
+      //   ]
+      // },
     ]
   }
 ];
