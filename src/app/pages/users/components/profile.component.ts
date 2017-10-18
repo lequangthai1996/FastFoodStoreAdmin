@@ -122,6 +122,7 @@ export class ProfileComponent implements OnInit {
           card: new FormControl(data.creditCard),
           gender: new FormControl(data.gender != null ? data.gender.toString() : 'true')
         });
+        this.avatar = data.avatar;
         this.profile.picture = data.avatar;
       }, 2000);
       console.log(data);

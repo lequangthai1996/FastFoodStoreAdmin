@@ -5,6 +5,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {TokenService} from '../../../../theme/services/token.service';
 import {environment} from '../../../../../environments/environment';
+import {CloudinaryOptions, CloudinaryUploader} from 'ng2-cloudinary';
 
 @Component({
   selector: 'app-admin-detail',
@@ -13,6 +14,10 @@ import {environment} from '../../../../../environments/environment';
 })
 export class AdminDetailComponent implements OnInit {
   metricsTableData: Array<any>;
+  avatar: string;
+  uploader: CloudinaryUploader = new CloudinaryUploader(
+    new CloudinaryOptions({cloudName: 'dobcevjy1', uploadPreset: 'tuUnsignedUpload'})
+  );
   public defaultPicture = 'assets/img/theme/no-photo.png';
   public profile: any = {
     picture: 'assets/img/app/profile/Nasta.png'
@@ -72,6 +77,11 @@ export class AdminDetailComponent implements OnInit {
     });
     this.orders = [];
     this.id = 0;
+    this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
+      let res: any = JSON.parse(response);
+      this.avatar = res.url;
+      return {item, response, status, headers};
+    };
   }
   onRemoveFile(event) {
     if (event.status === 'error') {
@@ -110,6 +120,7 @@ export class AdminDetailComponent implements OnInit {
               card: new FormControl(data.creditCard),
               gender: new FormControl(data.gender != null ? data.gender.toString() : 'true')
             });
+            this.avatar = data.avatar;
             this.profile.picture = data.avatar;
           }, 2000);
           console.log(data);
@@ -127,6 +138,7 @@ export class AdminDetailComponent implements OnInit {
   }
 
   save(model) {
+    this.uploader.uploadAll();
     if (!this.id) {
       let url, data;
       url = environment.hostname + '/user/createUser';
@@ -138,7 +150,7 @@ export class AdminDetailComponent implements OnInit {
         'address': model.address,
         'gender': model.gender,
         'birthday': model.birthday,
-        'avatar': 'add',
+        'avatar': this.avatar,
         'creditCard': model.card,
         'authorities': this.checkboxModel
       };
@@ -156,7 +168,7 @@ export class AdminDetailComponent implements OnInit {
         'address': model.address,
         'gender': model.gender,
         'birthday': model.birthday,
-        'avatar': 'add',
+        'avatar': this.avatar,
         'creditCard': model.card,
         'authorities': this.checkboxModel.filter(item => item.checked === true)
       };
