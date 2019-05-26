@@ -20,7 +20,7 @@ import {ItemService} from '../../theme/services/item.service';
 
 const DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
-  url: 'http://localhost:8089/upload/upload',
+  url: 'http://localhost:9000/upload/images',
   maxFilesize: 50,
   acceptedFiles: 'image/*',
   addRemoveLinks: true,

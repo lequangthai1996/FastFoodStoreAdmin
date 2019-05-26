@@ -67,7 +67,7 @@ export class InputProductComponent implements OnInit {
       description: new FormControl('', [Validators.required]),
       expiredAt: new FormControl('', [Validators.required]),
     });
-    categoryService.getListCategory(2).subscribe(data => {
+    categoryService.getListCategory(1).subscribe(data => {
       console.log(data);
       this.categories = data;
     });
@@ -83,9 +83,11 @@ export class InputProductComponent implements OnInit {
     console.log(this.categoriesChoise);
   }
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       if (this.id) {
+
         this.itemService.getItemById(this.id).subscribe(data => {
           this.categoriesChoise = data.category;
           this.imageItems = data.imageItems;
@@ -179,6 +181,7 @@ export class InputProductComponent implements OnInit {
   save(model) {
     let data;
     console.log(this.id);
+    alert(this.imageItems[0].image);
     if (!this.id) {
       data = {
         'name': model.name,

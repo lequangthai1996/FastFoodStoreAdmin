@@ -25,7 +25,7 @@ import {FileUploadModule} from 'ng2-cloudinary/dist/esm/src/cloudinary-uploader.
 
 const DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
-  url: 'http://localhost:8089/upload/upload',
+  url: 'http://localhost:9000/upload/images',
   maxFilesize: 1,
   acceptedFiles: 'image/*',
   addRemoveLinks: true,

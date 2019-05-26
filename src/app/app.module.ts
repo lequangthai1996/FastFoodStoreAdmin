@@ -50,7 +50,7 @@ export type StoreType = {
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     PagesModule,
-    routing,
+    routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     APP_PROVIDERS, ActivateGuard, NoLoggedGuard, AdminGuard
