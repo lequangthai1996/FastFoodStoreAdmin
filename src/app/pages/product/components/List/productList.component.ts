@@ -13,31 +13,32 @@ export class ProductListComponent implements OnInit {
 
   public data: any[];
   public filterQuery = '';
-  public rowsOnPage = 10;
+  public rowsOnPage = 5;
   public activePage = 1;
-  public sortBy = 'createdAt';
-  public sortOrder = '+';
+  public sortBy = 'createdDate';
+  public sortOrder = 'A';
   public itemsTotal = 0;
   public category = null;
   p = 1;
   public categories = null;
   constructor(private categoryService: CategoryService, private http: Http, private tokenService: TokenService) {
     this.categories = [];
-    categoryService.getListCategory(2).subscribe(data => {
-      this.categories = data;
+    categoryService.getListCategory(2).subscribe(result => {
+      this.categories = result['data'];
     });
   }
   public loadData() {
     let url;
-    url = environment.hostname + '/item/all?page=' + (this.activePage - 1)  +
+    url = /*environment.hostname*/ "http://localhost:9000" + '/items/all?page=' + (this.activePage - 1)  +
     '&size=' + this.rowsOnPage + '&sort=' + this.sortOrder + this.sortBy + ((this.category === null) ? '' : ('&category=' + this.category));
     console.log(url);
     this.http.get(url).
-      map(res => res.json()).subscribe((data) => {
+      map(res => res.json()).subscribe((result) => {
+        console.log(result);
         setTimeout(() => {
-          console.log(data);
-          this.data = data.content;
-          this.itemsTotal = data.totalElements;
+          console.log(result);
+          this.data = result.data.content;
+          this.itemsTotal = result.data.totalElements;
         }, 1000);
       });
   }
@@ -46,7 +47,7 @@ export class ProductListComponent implements OnInit {
     this.loadData();
   }
   sort(key) {
-    this.sortOrder = this.sortOrder === '+' ? '-' : '+';
+    this.sortOrder = this.sortOrder;
     this.sortBy = key;
     this.loadData();
   }

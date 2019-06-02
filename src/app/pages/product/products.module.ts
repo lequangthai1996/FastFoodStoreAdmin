@@ -23,7 +23,7 @@ const DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: 'http://localhost:9000/upload/images',
   maxFilesize: 50,
   acceptedFiles: 'image/*',
-  addRemoveLinks: true,
+  addRemoveLinks: true
 };
 @NgModule({
   imports: [

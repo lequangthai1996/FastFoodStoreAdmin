@@ -67,9 +67,10 @@ export class InputProductComponent implements OnInit {
       description: new FormControl('', [Validators.required]),
       expiredAt: new FormControl('', [Validators.required]),
     });
-    categoryService.getListCategory(1).subscribe(data => {
-      console.log(data);
-      this.categories = data;
+
+    categoryService.getListCategory(1).subscribe(result => {
+      console.log(result);
+      this.categories = result['data'];
     });
     unitService.getListUnit().subscribe(data => {
       console.log(data);
@@ -154,7 +155,7 @@ export class InputProductComponent implements OnInit {
     if (this.categoriesChoise.find(item => item.id === Number.parseInt(id)) === undefined) {
       let category;
       category = this.categories.find(item => item.id === Number.parseInt(id));
-      this.categoriesChoise.push(category);
+      this.categoriesChoise.push(category.id);
     }
   }
   onRemoveFile(event) {
@@ -175,6 +176,8 @@ export class InputProductComponent implements OnInit {
     console.log(event);
   }
   onUploadSuccess(event) {
+    console.log("event");
+    //console.log(JSON.stringify(event[0]));
     this.imageItems.push({'image' : event[0].name});
   }
 
@@ -186,7 +189,7 @@ export class InputProductComponent implements OnInit {
       data = {
         'name': model.name,
         'price': model.price,
-        'avatar': '/' + this.imageItems[0].image,
+        'avatar': this.imageItems[0].image,
         'status': true,
         'quantity': model.quantity,
         'description': model.description,
@@ -200,8 +203,8 @@ export class InputProductComponent implements OnInit {
         },
         'imageItems': this.imageItems
       };
-      this.tokenService.postDataWithToken(environment.hostname + '/item/create', data)
-        .subscribe(data2 => {
+      this.tokenService.postDataWithToken('http://localhost:9000' + '/items/create', data)
+        .subscribe(res => {
           alert('Create Success!');
         }, err => {
           alert('Create Fail!');

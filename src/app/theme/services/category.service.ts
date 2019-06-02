@@ -8,7 +8,7 @@ export class CategoryService {
   constructor(private http: Http) {
   }
   getListCategory(level) {
-    return this.http.get(`${environment.hostname}/category/level/` + level).map(res => res.json());
+    return this.http.get(`http://localhost:9000/category/all`).map(res => res.json());
   }
   getListSubCategory(id: number) {
     return this.http.get(`${environment.hostname}/category/parents/${id}`).map(res => res.json());
