@@ -21,7 +21,7 @@ export class TokenService {
     this.getInfo();
     this.isAdmin = false;
     this.headers = new Headers();
-    this.headers.append('Authorization', this.getToken());
+    this.headers.append('Authorization', this.getToken() == null ?null : this.getToken());
     this.headers.append('Accept', 'application/json');
     this.headers.append('Content-type', 'application/json');
   }
@@ -63,6 +63,7 @@ export class TokenService {
   }
 
   getDataWithToken(url) {
+    alert(this.headers.get('Authorization'));
     return this.http.get(url, {
       headers: this.headers
     }).map(res => res.json());
@@ -101,23 +102,28 @@ export class TokenService {
     return false;
   }
   isAuthenticated() {
-    this.getRole().subscribe((data: any) => {
-      for (const item of data) {
-        if (item.authority  === 'ROLE_ADMIN' || item.authority === 'ROLE_SUPPLIER') {
-          return true;
-        }
-      }
+    if(this.getToken() != null) {
+      return true;
+    } else {
       this.router.navigate(['/login']);
-      return false;
-    }, (err: any) => {
-      if (err.status === 401) {
-        this.refreshToken().subscribe((data: any) => {
-          this.setToken(data);
-        }, err2 => {
-          this.router.navigate(['/login']);
-        });
-      }
-    });
+    }
+    // this.getRole().subscribe((data: any) => {
+    //   for (const item of data) {
+    //     if (item.authority  === 'ROLE_ADMIN' || item.authority === 'ROLE_SUPPLIER') {
+    //       return true;
+    //     }
+    //   }
+    //   this.router.navigate(['/login']);
+    //   return false;
+    // }, (err: any) => {
+    //   if (err.status === 401) {
+    //     this.refreshToken().subscribe((data: any) => {
+    //       this.setToken(data);
+    //     }, err2 => {
+    //       this.router.navigate(['/login']);
+    //     });
+    //   }
+    // });
   }
   isLogged() {
     if (this.getToken() != null) {
@@ -139,7 +145,7 @@ export class TokenService {
     }).map(res => res.json());
   }
   setToken(token) {
-    Cookie.set(TokenService.TOKEN_KEY, token.token, token.expire / 3600);
+    Cookie.set(TokenService.TOKEN_KEY, token.data.token, token.data.expire / 3600);
     this.headers = new Headers();
     this.headers.append('Authorization', this.getToken());
     this.headers.append('Accept', 'application/json');

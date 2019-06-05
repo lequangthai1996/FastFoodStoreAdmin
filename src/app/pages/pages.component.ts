@@ -37,17 +37,24 @@ export class Pages {
   }
 
   ngOnInit() {
-    this.tokenService.getRole().subscribe(data => {
-      console.log(data);
-      for (let item of data) {
-        if (item.authority  === 'ROLE_ADMIN') {
-          this.tokenService.isAdmin = true;
-          this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_ADMIN);
-          return true;
-        }
-      }
+    if(this.tokenService.getToken != null) {
+      this.tokenService.isAdmin = true;
+      this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_ADMIN);
+    } else {
       this.tokenService.isAdmin = false;
       this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_SUPPLIER);
-    });
+    }
+    // this.tokenService.getRole().subscribe(data => {
+    //   console.log(data);
+    //   for (let item of data) {
+    //     if (item.authority  === 'ROLE_ADMIN') {
+    //       this.tokenService.isAdmin = true;
+    //       this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_ADMIN);
+    //       return true;
+    //     }
+    //   }
+    //   this.tokenService.isAdmin = false;
+    //   this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU_SUPPLIER);
+    // });
   }
 }

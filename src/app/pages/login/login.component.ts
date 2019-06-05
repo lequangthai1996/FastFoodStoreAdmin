@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
 export class LoginComponent {
 
   public form: FormGroup;
-  public email: AbstractControl;
+  public username: AbstractControl;
   public password: AbstractControl;
   public submitted = false;
 
@@ -24,21 +24,21 @@ export class LoginComponent {
               private service: ShareService,
               private router: Router) {
     this.form = fb.group({
-      'email': ['', Validators.compose([Validators.required])],
+      'username': ['', Validators.compose([Validators.required])],
       'password': ['', Validators.compose([Validators.required])]
     });
 
-    this.email = this.form.controls['email'];
+    this.username = this.form.controls['username'];
     this.password = this.form.controls['password'];
   }
 
   public onSubmit(values): void {
     this.submitted = true;
     if (this.form.valid) {
-      const url = environment.hostname + '/auth/admin';
+      const url = /*environment.hostname*/ "http://localhost:9000" + '/auth/saler';
       let data;
       data = {
-        'username': values.email,
+        'username': values.username,
         'password': values.password,
       };
       this.tokenService.postDataWithToken(url, data).subscribe((a: any) => {
@@ -50,7 +50,7 @@ export class LoginComponent {
         this.router.navigate(['/pages']);
       }, (err: any) => {
         if (err.status === 401) {
-          swal('Thông báo', 'Email hoặc mật khẩu không tồn tại!', 'error');
+          swal('Thông báo', 'Username hoặc mật khẩu không tồn tại!', 'error');
         } else {
           swal('Thông báo', 'Đăng nhập thất bại!', 'error');
         }

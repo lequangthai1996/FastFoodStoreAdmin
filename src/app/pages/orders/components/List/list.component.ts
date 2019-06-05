@@ -19,7 +19,7 @@ export class OrderListComponent implements OnInit {
   public activePage = 1;
   public header: string;
   public status: number;
-  public sortBy = 'createdAt';
+  public sortBy = 'createdDate';
   public sortOrder = '-';
   public itemsTotal = 0;
   p = 1;
@@ -50,13 +50,14 @@ export class OrderListComponent implements OnInit {
     }
   }
   public loadData() {
-    this.tokenService.getDataWithToken(environment.hostname + '/order/getOrderByStatus?status='
+    this.tokenService.getDataWithToken(environment.hostname + '/order/list?status='
       + this.status + '&page=' + (this.activePage - 1)  + '&size=' + this.rowsOnPage + '&sort='
-      + this.sortOrder + this.sortBy).subscribe((data) => {
+      + this.sortOrder + this.sortBy).subscribe((result) => {
       setTimeout(() => {
-        console.log(data);
-        this.data = data.content;
-        this.itemsTotal = data.totalElements;
+        console.log("orderHahah");
+        console.log(result);
+        this.data = result.data.content;
+        this.itemsTotal = result.data.totalElements;
       }, 1000);
     });
   }

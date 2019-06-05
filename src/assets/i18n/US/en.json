@@ -2,7 +2,7 @@
   "login": {
     "title": "Sign in to MegaShop",
     "signup_link": "New to MegaShop? Sign up!",
-    "email": "Email",
+    "username": "Username",
     "password": "Password",
     "sign_in": "Sign in",
     "forgot_password": "Forgot password?",
